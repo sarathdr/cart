@@ -15,7 +15,9 @@ public class ConsumePromotion implements Consumer<CartItem> {
                     final double totalPrice = cartItem.getNumberOfItems() * cartItem.getItem().getPrice();
 
                     double discount = 0;
-                    if (promotion.getFreeItems() > 0 && promotion.getMinimumItems() > 1) {
+                    if (promotion.getFreeItems() > 0
+                            && promotion.getMinimumItems() > promotion.getFreeItems()
+                            && cartItem.getNumberOfItems() >= promotion.getMinimumItems()) {
                         final int freeItems = (cartItem.getNumberOfItems() / promotion.getMinimumItems()) * promotion.getFreeItems();
                         discount = freeItems * cartItem.getItem().getPrice();
                     }
